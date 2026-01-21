@@ -139,6 +139,8 @@ body {
     color: var(--text-color);
 
     background-color: var(--background-color);
+
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 /*
@@ -158,8 +160,11 @@ header {
     - 'z-index' ensures the header stays on top of other content when scrolling.
   */
     position: sticky;
+    /*fixed */
+    /* width: 100%; */
     top: 0;
     z-index: 100;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 
@@ -186,7 +191,54 @@ header nav ul li a {
     color: var(--text-color);
     font-weight: var(--font-weight-bold);
     padding: 0.5rem;
+    transition: color 0.3s ease-in-out;
 }
+
+header nav ul li a:hover {
+    color: var(--primary-color);
+}
+
+/* ... after your 'header nav ul li a' styles ... */
+
+/*
+  ========================================
+  MENU TOGGLE (HAMBURGER)
+  ========================================
+  Styles for the mobile navigation toggle button.
+*/
+
+.menu-toggle {
+    /* Hide the hamburger button by default on larger (desktop) screens. */
+    display: none;
+
+    /* Basic button styling */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    /* Remove default padding */
+
+    /* Use flexbox to center the bars and manage their stacking */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 24px;
+}
+
+.menu-toggle .bar {
+    /* Style each of the three bars */
+    display: block;
+    /* Ensure spans behave like block elements */
+    width: 100%;
+    height: 3px;
+    background-color: var(--text-color);
+    border-radius: 3px;
+
+    /* We will add a transition here for a future animation when the menu is toggled. */
+    transition: all 0.3s ease-in-out;
+}
+
 
 /*
   ========================================
@@ -362,6 +414,7 @@ header nav ul li a {
     /* Define the width for the image column. flex: 1; would make it share space equally. */
     /* Here, we give it a fixed proportion of the layout. */
     flex: 1;
+
     max-width: 300px;
     /* Optional: cap the max size of the image container */
 }
@@ -374,7 +427,7 @@ header nav ul li a {
     height: auto;
 
     /* A popular and modern design choice: make the profile picture a circle. */
-    border-radius: 50%;
+    border-radius: 100%;
 
     /* Add a subtle shadow to make the image "pop" from the background. */
     box-shadow: 0 4px 15px var(--shadow-color);
@@ -470,11 +523,13 @@ header nav ul li a {
     card's rounded corners.
   */
     overflow: hidden;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .project-image {
     /* Ensures the image is responsive and fills the width of the card. */
     width: 100%;
+    height: 55%;
 
     /* 'display: block' removes any potential extra space below the image. */
     display: block;
@@ -508,6 +563,7 @@ header nav ul li a {
     /* Style for the primary link (e.g., Live Demo) */
     background-color: var(--primary-color);
     color: var(--surface-color);
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 /* A secondary style for the 'View Code' link to create visual hierarchy. */
@@ -515,6 +571,14 @@ header nav ul li a {
     background-color: transparent;
     color: var(--primary-color);
     border: 1px solid var(--primary-color);
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.project-links a:last-child:hover {
+    background-color: var(--primary-color);
+    color: var(--surface-color);
+    filter: none;
+    /* Reset filter for this specific hover state */
 }
 
 /*
@@ -587,7 +651,10 @@ header nav ul li a {
     color: var(--text-color);
 
     /* Add a smooth transition for when the fields get focus. */
-    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    transition: border-color 0.2s ease-in-out,
+        box-shadow 0.2s ease-in-out,
+        background-color 0.3s ease-in-out,
+        color 0.3s ease-in-out;
 }
 
 /* A useful tweak for the textarea: allow vertical resizing but not horizontal, which can break layouts. */
@@ -666,6 +733,7 @@ footer {
 
     /* Center the text within the footer by default. This will apply to the <p> tag. */
     text-align: center;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 /* 
@@ -733,4 +801,150 @@ footer ul li a {
 footer ul li a:hover {
     /* Change the link color to our primary brand color on hover. */
     color: var(--primary-color);
+}
+
+/*
+  ========================================
+  RESPONSIVE STYLES - MEDIA QUERIES
+  ========================================
+  We'll place all our responsive adjustments at the end of the stylesheet.
+  This ensures they correctly override the default desktop styles due to the
+  nature of the CSS cascade.
+*/
+
+/* 
+  Breakpoint 1: Tablet Devices
+  This media query targets screen sizes up to 768px wide. This is a common
+  breakpoint for devices like iPads in portrait mode.
+*/
+@media (max-width: 768px) {
+    #hero h1 {
+        font-size: 2.8rem;
+        /* Down from 3.5rem */
+    }
+
+    /* Also reduce the size of the hero subtitle for better balance. */
+    #hero .hero-subtitle {
+        font-size: 1.25rem;
+        /* Down from 1.5rem */
+    }
+
+    /* === Layout Adjustments === */
+
+    /* 
+    The 'About Me' section: On tablets, the side-by-side layout can feel
+    cramped. Stacking the image and text vertically creates a better
+    reading flow on a narrower screen.
+  */
+    .about-content {
+        /* Change the flex-direction from the default 'row' to 'column'. */
+        flex-direction: column;
+
+        /* Increase the gap to provide vertical space between the stacked items. */
+        gap: calc(var(--spacing-unit) * 3);
+    }
+
+    /* Ensure the about image doesn't look too small when stacked. */
+    .about-image {
+        max-width: 250px;
+        margin: 0 auto;
+        /* Center the image container */
+    }
+
+    /* 
+    The 'Projects' section grid: We switch from a 3-column grid to a 2-column grid.
+    This gives each project card more horizontal space, making them larger,
+    more prominent, and easier to tap on a touch device.
+  */
+    .projects-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    header nav {
+        display: none;
+    }
+
+    /*
+    NEW: Show the menu-toggle button. We change its display property
+    from 'none' to 'flex' (as we defined in its base styles).
+  */
+    .menu-toggle {
+        display: flex;
+    }
+}
+
+@media (max-width: 480px) {
+    .projects-container {
+        grid-template-columns: 1fr;
+        /* Or repeat(1, 1fr) */
+    }
+
+    /*
+    On mobile, the side-by-side header layout can feel cramped.
+    We can stack the logo/nav and the theme switcher vertically.
+    Let's also add some space between them.
+  */
+    header .container {
+        flex-direction: column;
+        gap: var(--spacing-unit);
+    }
+
+    /* === Typography Adjustments === */
+
+    /* 
+    Further reduce the hero heading size for the smallest screens to
+    prevent it from taking up too much vertical space.
+  */
+    #hero h1 {
+        font-size: 2.2rem;
+        /* Down from 2.8rem on tablet */
+    }
+
+    /* Reduce the hero subtitle as well. */
+    #hero .hero-subtitle {
+        font-size: 1.1rem;
+        /* Down from 1.25rem on tablet */
+    }
+
+    /* === Spacing Adjustments === */
+
+    /*
+    On mobile, vertical space is precious. We can reduce the large top/bottom
+    padding on our main content sections to show more content "above the fold".
+  */
+    #about,
+    #projects,
+    #contact {
+        padding: calc(var(--spacing-unit) * 2) 0;
+    }
+
+    .menu-toggle {
+        padding: 0.5rem;
+        /* Adds 8px of tappable space on all sides */
+    }
+
+    /*
+    Increase the size of the project buttons to make them more prominent
+    and easier to tap on a touch screen.
+  */
+    .project-links a {
+        padding: 0.75rem 1.25rem;
+        /* Increased from 0.5rem 1rem */
+        font-size: 1rem;
+        /* Ensure font size is consistently readable */
+    }
+
+    /*
+    Increase the tappable area and spacing of footer social media links.
+    This prevents users from accidentally tapping the wrong link.
+  */
+    s footer ul {
+        gap: calc(var(--spacing-unit) * 1.5);
+        /* Increase the space between links */
+    }
+
+    footer ul li a {
+        padding: 0.4rem;
+        /* Add padding to create a larger tap target */
+    }
 }
