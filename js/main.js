@@ -1,5 +1,4 @@
-// This line selects the HTML element with the ID 'theme-toggle' and stores a reference to it in a constant variable named 'themeToggle'.
-// 'const' is used because this reference will not be reassigned to a different element later in our code.
+
 const projects = [{
   // The title of the project. This will be displayed as the main heading of the card.
   title: "Portfolio Project (This Website!)",
