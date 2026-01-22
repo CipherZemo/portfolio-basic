@@ -709,7 +709,6 @@ header nav ul li a:hover {
     /* The filter property is a modern way to change appearance. brightness(90%) slightly darkens the element. */
     filter: brightness(90%);
 }
-
 #form-status {
   /* Common styles for both success and error messages */
   padding: 0.8rem 1rem;
